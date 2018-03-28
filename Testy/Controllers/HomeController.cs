@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Testy.Models.Baza;
 
 namespace Testy.Controllers
 {
@@ -15,7 +16,9 @@ namespace Testy.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            Dane dane = new Dane();
+
+            ViewBag.Message = dane.PobiezUzytkownika("zenek").Nazwisko;
 
             return View();
         }
