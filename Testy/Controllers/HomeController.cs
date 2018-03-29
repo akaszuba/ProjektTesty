@@ -7,8 +7,10 @@ using Testy.Models.Baza;
 
 namespace Testy.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
+        
         public ActionResult Index()
         {
             return View();

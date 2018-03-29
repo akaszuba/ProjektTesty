@@ -11,11 +11,11 @@ namespace Testy.Models.Baza
     {
         public Uzytkownik PobiezUzytkownika(string nazwa)
         {
-            List<Hashtable> uzytkownikcy = Pobierz($"SELECT Id, Nazwa, Haslo, Imie, Nazwisko, CzyWykladowca from Uzytkownicy where Nazwa = '{nazwa}'");
+            List< Dictionary<string, object>> uzytkownicy = Pobierz($"SELECT Id, Nazwa, Haslo, Imie, Nazwisko, CzyWykladowca from Uzytkownicy where Nazwa = '{nazwa}'");
 
-            if (uzytkownikcy.Count == 1)
+            if (uzytkownicy.Count == 1)
             {
-                Hashtable uzytkownik = uzytkownikcy[0];
+                Dictionary<string, object> uzytkownik = uzytkownicy[0];
                 return new Uzytkownik()
                 {
                     Id = (int)uzytkownik["Id"],
@@ -29,9 +29,9 @@ namespace Testy.Models.Baza
             return null;
         }
 
-        private List<Hashtable> Pobierz(string sql)
+        private List<Dictionary<string, object>> Pobierz(string sql)
         {
-            List<Hashtable> output = new List<Hashtable>();
+            List< Dictionary<string, object>> output = new List<Dictionary<string, object>> ();
 
             using (SqlConnection sqlConnection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|BazaTestow.mdf;Integrated Security=True"))
             {
@@ -42,7 +42,7 @@ namespace Testy.Models.Baza
                     {
                         while (reader.Read())
                         {
-                            Hashtable record = new Hashtable();
+                            Dictionary<string, object> record = new Dictionary<string,object>();
                             for (int i = 0; i < reader.FieldCount; i++)
                             {
                                 record.Add(reader.GetName(i), reader.GetValue(i));
