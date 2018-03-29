@@ -14,22 +14,6 @@ namespace Testy.Controllers
         public ActionResult Index()
         {
             return View();
-        }
-
-        public ActionResult About()
-        {
-            Dane dane = new Dane();
-
-            ViewBag.Message = dane.PobiezUzytkownika("zenek").Nazwisko;
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+        }       
     }
 }
