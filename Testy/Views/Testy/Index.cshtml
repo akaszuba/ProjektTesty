@@ -1,0 +1,34 @@
+﻿@model Testy.Models.TestyIndexModel
+@using System.Web.Script.Serialization;
+
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <h2>Dostępne testy dla użytkownika @Html.Raw(Model.Uzytkownik.Imie) @Html.Raw(Model.Uzytkownik.Nazwisko)</h2>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Akcje</th>
+                <th>Nazwa</th>
+                <th>Czas Trwania</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var test in Model.Testy)
+            {
+            <tr>
+                <td>@Html.ActionLink("Rozpocznij","Rozwiaz", new { testId = test.Id })</td>
+                <td>@test.Nazwa</td>
+                <td>@test.IloscMinNaRozwiazanie</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

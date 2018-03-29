@@ -11,11 +11,11 @@ namespace Testy.Models.Baza
     {
         public Uzytkownik PobiezUzytkownika(string nazwa)
         {
-            List< Dictionary<string, object>> uzytkownicy = Pobierz($"SELECT Id, Nazwa, Haslo, Imie, Nazwisko, CzyWykladowca from Uzytkownicy where Nazwa = '{nazwa}'");
+            List< Dictionary<string, object>> wyniki = Pobierz($"SELECT Id, Nazwa, Haslo, Imie, Nazwisko, CzyWykladowca from Uzytkownicy where Nazwa = '{nazwa}'");
 
-            if (uzytkownicy.Count == 1)
+            if (wyniki.Count == 1)
             {
-                Dictionary<string, object> uzytkownik = uzytkownicy[0];
+                Dictionary<string, object> uzytkownik = wyniki[0];
                 return new Uzytkownik()
                 {
                     Id = (int)uzytkownik["Id"],
@@ -27,6 +27,25 @@ namespace Testy.Models.Baza
                 };
             }
             return null;
+        }
+
+        public List<Test> PobiezTesty()
+        {
+            List<Dictionary<string, object>> wyniki = Pobierz($"SELECT Id, Nazwa, IloscMinNaRozwiazanie from Testy");
+
+            List<Test> testy = new List<Test>();
+            foreach (var wynik in wyniki)
+            {
+                Test test = new Test()
+                {
+                    Id = (int)wynik["Id"],
+                    Nazwa = (string)wynik["Nazwa"],
+                    IloscMinNaRozwiazanie = (int)wynik["IloscMinNaRozwiazanie"]
+                };
+
+                testy.Add(test);
+            }
+            return testy;
         }
 
         private List<Dictionary<string, object>> Pobierz(string sql)
